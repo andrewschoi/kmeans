@@ -36,7 +36,18 @@ def kmeans(feats, k, max_iter=1000):
 
 
 def kmeans_with_color(img, k):
-  pass
+    m, n, _ = img.shape
+    X = img.reshape((-1, 3))
+    return kmeans(X, k).reshape((m, n))
 
 def kmeans_with_color_posn(img, k, alpha):
-  pass
+    m, n, _ = img.shape
+    
+    X = []
+    for i in range(m):
+        for j in range(n):
+            X.append(np.append(img[i][j], [i * alpha, j * alpha]))
+
+    X = np.array(X)
+    
+    return kmeans(X, k).reshape((m, n))
